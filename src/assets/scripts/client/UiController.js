@@ -5,6 +5,7 @@ import _keys from 'lodash/keys';
 import AirportController from './airport/AirportController';
 import EventBus from './lib/EventBus';
 import GameController from './game/GameController';
+import TutorialView from './tutorial/TutorialView';
 import { speech_toggle } from './speech';
 import { EVENT } from './constants/eventNames';
 import { GAME_OPTION_NAMES } from './constants/gameOptionConstants';
@@ -41,6 +42,7 @@ class UiController {
      */
     constructor() {
         this._eventBus = EventBus;
+        this.tutorialView = null;
 
         this.$element = null;
         this.$airportList = null;
@@ -70,8 +72,9 @@ class UiController {
      * @param $element {jQuery Element}
      */
     init($element) {
-        this.$element = $element;
+        this.tutorialView = new TutorialView($element);
 
+        this.$element = $element;
         this.$airportList = this.$element.find(SELECTORS.DOM_SELECTORS.AIRPORT_LIST);
         this.$airportListNotes = this.$element.find(SELECTORS.DOM_SELECTORS.AIRPORT_LIST_NOTES);
         this.$airportDialog = this.$element.find(SELECTORS.DOM_SELECTORS.AIRPORT_SWITCH);
@@ -176,6 +179,7 @@ class UiController {
 
         this.ui = {};
         this.ui.scale = INVALID_NUMBER;
+        this.tutorialView = null;
 
         return this;
     }
@@ -185,6 +189,7 @@ class UiController {
      * @method ui_init
      */
     ui_init() {
+        this.tutorialView.tutorial_init_pre();
         this.$fastForwards.prop('title', 'Set time warp to 2');
 
         const $options = $(UI_SETTINGS_MODAL_TEMPLATE);
@@ -213,7 +218,7 @@ class UiController {
      */
     closeAllDialogs() {
         if (this.isTutorialDialogOpen()) {
-            // TODO: Close the tutorial, once it is moved from `InputController` to `UiController`
+            this.tutorialView.tutorial_close();
         }
 
         // TODO: Currently this will always be false because _init() is failing to find

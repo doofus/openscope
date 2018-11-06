@@ -12,6 +12,7 @@
 
 
 ### Enhancements & Refactors
+- [#1171](https://github.com/openscope/openscope/issues/1171) - Move tutorial from InputController to UiController
 
 
 
