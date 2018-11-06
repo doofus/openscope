@@ -47,7 +47,7 @@ class UiController {
         this.$element = null;
         this.$airportList = null;
         this.$airportListNotes = null;
-        this.$tutorialDialog = null;
+        this.$toggleTutorial = null;
         this.$fastForwards = null;
         this.$pauseToggle = null;
         this.$pausedImg = null;
@@ -78,7 +78,7 @@ class UiController {
         this.$airportList = this.$element.find(SELECTORS.DOM_SELECTORS.AIRPORT_LIST);
         this.$airportListNotes = this.$element.find(SELECTORS.DOM_SELECTORS.AIRPORT_LIST_NOTES);
         this.$airportDialog = this.$element.find(SELECTORS.DOM_SELECTORS.AIRPORT_SWITCH);
-        this.$tutorialDialog = this.$element.find(SELECTORS.DOM_SELECTORS.TOGGLE_TUTORIAL);
+        this.$toggleTutorial = this.$element.find(SELECTORS.DOM_SELECTORS.TOGGLE_TUTORIAL);
         this.$fastForwards = this.$element.find(SELECTORS.DOM_SELECTORS.FAST_FORWARDS);
         this.$pauseToggle = this.$element.find(SELECTORS.DOM_SELECTORS.PAUSE_TOGGLE);
         this.$pausedImg = this.$element.find(`${SELECTORS.DOM_SELECTORS.PAUSED} img`);
@@ -114,7 +114,7 @@ class UiController {
      * @method enable
      */
     enable() {
-        this.$tutorialDialog.on('click', (event) => this._eventBus.trigger(EVENT.TOGGLE_TUTORIAL, event));
+        this.$toggleTutorial.on('click', (event) => this._eventBus.trigger(EVENT.TOGGLE_TUTORIAL, event));
         this.$fastForwards.on('click', (event) => GameController.game_timewarp_toggle(event));
         this.$pauseToggle.on('click', (event) => GameController.game_pause_toggle(event));
         this.$pausedImg.on('click', (event) => GameController.game_unpause(event));
@@ -139,7 +139,7 @@ class UiController {
      * @method disable
      */
     disable() {
-        this.$tutorialDialog.off('click', (event) => this._eventBus.trigger(EVENT.TOGGLE_TUTORIAL, event));
+        this.$toggleTutorial.off('click', (event) => this._eventBus.trigger(EVENT.TOGGLE_TUTORIAL, event));
         this.$fastForwards.off('click', (event) => GameController.game_timewarp_toggle(event));
         this.$pauseToggle.off('click', (event) => GameController.game_pause_toggle(event));
         this.$pausedImg.off('click', (event) => GameController.game_unpause(event));
@@ -165,7 +165,7 @@ class UiController {
         this.$element = null;
         this.$airportList = null;
         this.$airportListNotes = null;
-        this.$tutorialDialog = null;
+        this.$toggleTutorial = null;
         this.$fastForwards = null;
         this.$pauseToggle = null;
         this.$pausedImg = null;
@@ -221,8 +221,6 @@ class UiController {
             this.tutorialView.tutorial_close();
         }
 
-        // TODO: Currently this will always be false because _init() is failing to find
-        // the options dialog by class name.
         if (this.isOptionsDialogOpen()) {
             this.onToggleOptions();
         }
@@ -262,7 +260,7 @@ class UiController {
      * @return {boolean}
      */
     isTutorialDialogOpen() {
-        return this.$tutorialDialog.hasClass(SELECTORS.CLASSNAMES.OPEN);
+        return this.$toggleTutorial.hasClass(SELECTORS.CLASSNAMES.ACTIVE);
     }
 
     /**
@@ -625,6 +623,18 @@ class UiController {
     onToggleOptions() {
         this.$toggleOptions.toggleClass(SELECTORS.CLASSNAMES.ACTIVE);
         this.$optionsDialog.toggleClass(SELECTORS.CLASSNAMES.OPEN);
+    }
+
+    /**
+     * @for UiController
+     * @method onToggleTutorial
+     */
+    onToggleTutorial() {
+        if (this.isTutorialDialogOpen()) {
+            this.tutorialView.tutorial_close();
+        } else {
+            this.tutorialView.tutorial_open();
+        }
     }
 }
 
