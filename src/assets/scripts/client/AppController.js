@@ -246,7 +246,7 @@ export default class AppController {
      * @method updatePost
      */
     updatePost() {
-        this.canvasController.canvas_update_post();
+        this.canvasController.canvasUpdatePost();
         this.aircraftController.updateAircraftStrips();
     }
 
