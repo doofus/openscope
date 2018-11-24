@@ -38,7 +38,7 @@ Listening on PORT 3003
 
 Success!!
 
-You you do not see this message and are having trouble getting set up, please join us on [Slack](http://slack.openscope.co) and someone will be able to troubleshoot with you.
+If you do not see this message and are having trouble getting set up, please join us on [Slack](http://slack.openscope.co) and someone will be able to troubleshoot with you.
 
 For more information on the available tools, please view the [Tools Readme](tools/README.md).
 
