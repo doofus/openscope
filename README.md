@@ -19,6 +19,7 @@ Feel free to [join us on slack](http://slack.openscope.co/) if you have question
 _Prerequisites: In order to successfully complete this quick start, you will need to have the following installed locally:_
 - [Git](https://git-scm.com/downloads)
 - [Node](https://nodejs.org/en/download/)
+- [gifsicle](https://www.lcdf.org/gifsicle/)
 
 _Installation directions are beyond the scope of this document.  Instead, search the [Google](http://google.com).  Installing these two packages has been written about ad-nauseum._
 
